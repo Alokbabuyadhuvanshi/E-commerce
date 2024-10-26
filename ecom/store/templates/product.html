@@ -71,6 +71,7 @@
             cache: false,
             success: function(json){
                 document.getElementById('card-quantity').textContent = json.Qty;
+                location.reload();
             },
             error: function(xhr, errmsg, err){
                 // Handle errors here
