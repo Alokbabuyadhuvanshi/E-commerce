@@ -16,14 +16,14 @@ class Cart():
 
     def add(self,product,quantity):
         product_id = str(product.id)
-        product_Qty =str(quantity)
+        product_Qty =quantity
         #logic
         if product_id in self.cart:
             pass
         else:
             
             #self.cart[product_id] = {'price':str(product.price)}
-            self.cart[product_id] = int(product_Qty)
+            self.cart[product_id] = product_Qty
         
         self.session.modified = True
 
