@@ -76,3 +76,6 @@ def register_user(request):
 
     return render(request, 'register.html', {'form':form})
 
+def category_summary(request):
+    categories = Category.objects.all()
+    return render(request, 'category_summary.html', {'categories':categories})
