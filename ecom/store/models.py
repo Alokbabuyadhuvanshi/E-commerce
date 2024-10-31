@@ -1,5 +1,40 @@
 from django.db import models
 import datetime
+from  django.contrib.auth.models import User
+from django.db.models.signals import post_save
+
+# Create Customer Profile
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE) # One profile with One user (one - one)
+    date_modified = models.DateTimeField(User, auto_now=True)
+    phone = models.CharField(max_length=20, blank=True)
+    address1 = models.CharField(max_length=200, blank=True)
+    address2 = models.CharField(max_length=200, blank=True)
+    city = models.CharField(max_length=200, blank=True)
+    state = models.CharField(max_length=200, blank=True)
+    zipcode = models.CharField(max_length=200, blank=True)
+    country = models.CharField(max_length=200, blank=True)
+    
+    def __str__(self):
+        return self.user.username
+
+# create a user profile by default when user signs up
+
+#When a new user signs up:
+'''The User model (the sender) triggers a post_save signal.
+The create_profile function is called with:
+The user instance (the specific user who signed up) as instance.
+A boolean (created) that tells whether it's a new user.
+Any additional arguments captured in **kwargs (though not used here).'''
+
+def create_profile(sender, instance, created, **kwargs):
+    if created:
+        user_profile = Profile(user=instance)
+        user_profile.save()
+
+# Automate the profile thing
+post_save.connect(create_profile, sender=User)     #This line connects the create_profile function to a signal called post_save, which is triggered after a User instance is saved. It means that every time a User is created, the create_profile function will be called automatically.
+
 
 # Categories of Products
 class Category(models.Model):
