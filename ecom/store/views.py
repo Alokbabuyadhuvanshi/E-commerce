@@ -1,10 +1,10 @@
 from django.shortcuts import render,redirect
-from .models import Product,Category
+from .models import Product,Category,Profile
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .forms import SignUpForm, UpdateUserForm, ChangePasswordForm
+from .forms import SignUpForm, UpdateUserForm, ChangePasswordForm, UserInfoForm
 from django.views.decorators.cache import never_cache
 
 # Create your views here.
@@ -67,8 +67,8 @@ def register_user(request):
             password = form.cleaned_data['password1']
             user = authenticate(username=username,password=password)
             login(request, user)
-            messages.success(request, ("You have Registered Successfully!! Welcome!"))
-            return redirect('home')
+            messages.success(request, ("You have Registered Successfully!! Please fill your complete info below!"))
+            return redirect('Update_info')
         else:
             messages.success(request, ("Whoops! There was a problem in Registering, please try again..."))
             return redirect('register')
@@ -90,7 +90,22 @@ def update_user(request):
     else:
         messages.success(request, ("You Must Be Logged In!!"))
         return redirect('home')
-    
+
+def update_info(request):
+    if request.user.is_authenticated:
+        current_user = Profile.objects.get(user__id=request.user.id)
+        form = UserInfoForm(request.POST or None,instance=current_user)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, ("You info has been updated successfully!!"))
+            return redirect('home')
+        return render(request, "update_info.html",{'form':form})
+    else:
+        messages.success(request, ("You Must Be Logged In!!"))
+        return redirect('home')
+
+
 def update_password(request):
     if request.user.is_authenticated:
         current_user = request.user
