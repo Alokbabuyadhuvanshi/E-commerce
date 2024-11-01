@@ -1,6 +1,79 @@
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, SetPasswordForm
 from django import forms
+from .models import Profile
+
+class UserInfoForm(forms.ModelForm):
+    phone = forms.CharField(
+        label="", 
+        widget=forms.TextInput(attrs={
+            'class': 'form-control mb-3 rounded-pill',
+            'placeholder': '📞 Phone',
+            'style': 'padding-left: 30px;',
+        }), 
+        required=False
+    )
+    address1 = forms.CharField(
+        label="", 
+        widget=forms.TextInput(attrs={
+            'class': 'form-control mb-3 rounded-pill',
+            'placeholder': '🏠 Address 1',
+            'style': 'padding-left: 30px;',
+        }), 
+        required=False
+    )
+    address2 = forms.CharField(
+        label="", 
+        widget=forms.TextInput(attrs={
+            'class': 'form-control mb-3 rounded-pill',
+            'placeholder': '🏠 Address 2',
+            'style': 'padding-left: 30px;',
+        }), 
+        required=False
+    )
+    city = forms.CharField(
+        label="", 
+        widget=forms.TextInput(attrs={
+            'class': 'form-control mb-3 rounded-pill',
+            'placeholder': '🏙️ City',
+            'style': 'padding-left: 30px;',
+        }), 
+        required=False
+    )
+    state = forms.CharField(
+        label="", 
+        widget=forms.TextInput(attrs={
+            'class': 'form-control mb-3 rounded-pill',
+            'placeholder': '🗺️ State',
+            'style': 'padding-left: 30px;',
+        }), 
+        required=False
+    )
+    zipcode = forms.CharField(
+        label="", 
+        widget=forms.TextInput(attrs={
+            'class': 'form-control mb-3 rounded-pill',
+            'placeholder': '📬 Zipcode',
+            'style': 'padding-left: 30px;',
+        }), 
+        required=False
+    )
+    country = forms.CharField(
+        label="", 
+        widget=forms.TextInput(attrs={
+            'class': 'form-control mb-3 rounded-pill',
+            'placeholder': '🌍 Country',
+            'style': 'padding-left: 30px;',
+        }), 
+        required=False
+    )
+
+    class Meta:
+        model = Profile
+        fields = ('phone', 'address1', 'address2', 'city', 'state', 'zipcode', 'country')
+
+
+
 
 
 class ChangePasswordForm(SetPasswordForm):
@@ -47,8 +120,9 @@ class UpdateUserForm(UserChangeForm):
             'class': 'form-control rounded-pill',
             'placeholder': 'Email Address',
             'style': 'padding-left: 30px;',
-        })
-    )
+        }),
+        required=False
+        )
     first_name = forms.CharField(
         label="🧑 First Name:",
         max_length=100,
@@ -56,7 +130,8 @@ class UpdateUserForm(UserChangeForm):
             'class': 'form-control mb-3 rounded-pill',
             'placeholder': 'First Name',
             'style': 'padding-left: 30px;',
-        })
+        }),
+        required=False
     )
     last_name = forms.CharField(
         label="🧑 Last Name:",
@@ -65,7 +140,8 @@ class UpdateUserForm(UserChangeForm):
             'class': 'form-control mb-3 rounded-pill',
             'placeholder': 'Last Name',
             'style': 'padding-left: 30px;',
-        })
+        }),
+        required=False
     )
 
     class Meta:
