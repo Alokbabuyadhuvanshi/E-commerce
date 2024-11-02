@@ -31,6 +31,8 @@ def category(request, foo):
         messages.success(request,("That Category Doesn't Exists..."))
         return redirect('home')
 
+def search(request):
+    return render(request, "search.html", {})
 
 @never_cache
 def about(request):
