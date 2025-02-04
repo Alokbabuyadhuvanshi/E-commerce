@@ -4,8 +4,8 @@
     <header class="bg-dark py-5">
         <div class="container px-4 px-lg-5 my-5">
             <div class="text-center text-white">
-                <h1 class="display-4 fw-bolder">Checkout</h1>
-                <p class="lead fw-normal text-white-50 mb-0">Review Your Order...</p>
+                <h1 class="display-4 fw-bolder">Billing Info</h1>
+                <p class="lead fw-normal text-white-50 mb-0">Enter Your Payment Info...</p>
             </div>
         </div>
     </header>
@@ -43,20 +43,15 @@
                         </div>
                     </div>
                 </div>
-                <br/>
-                <div class="card">
-                    <div class="card-header">
-                        Shipping Info
-                    </div>
-                    <div class="card-body">
+                <br/>    
+                <div class="card-body">
                 <form method="POST" action={% url "billing_info" %}>
-                            {% csrf_token %}
-                        {{ shipping_form.as_p }}
-                    </div>
-                </div>
-                <br>
-                <a href="{% url "billing_info" %}" class="btn btn-secondary">Continue to Billing</a>
+                    {% csrf_token %}
+                    {{ shipping_form.as_p }}
+                    <br>
+                    <a href="#" class="btn btn-secondary">Pay Now</a>
                 </form>
+                </div>
             </div>
         </div>  
     </div>
