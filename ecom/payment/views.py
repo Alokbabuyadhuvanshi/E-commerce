@@ -13,10 +13,9 @@ def billing_info(request):
         totals = cart.cart_total()
 
         if request.user.is_authenticated:
-            pass
+            return render(request, 'billing_info.html', {'cart_products': cart_products, 'quantities': quantities, 'totals': totals, 'shipping_info': request.POST})
         else:
-            pass
-        return render(request, 'billing_info.html', {'cart_products': cart_products, 'quantities': quantities, 'totals': totals, 'shipping_info': request.POST})
+            return render(request, 'billing_info.html', {'cart_products': cart_products, 'quantities': quantities, 'totals': totals, 'shipping_info': request.POST})
     else:
         messages.success(request,"Access Denied")
         return redirect('home')
