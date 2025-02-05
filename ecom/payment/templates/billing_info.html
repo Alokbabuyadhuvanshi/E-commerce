@@ -63,16 +63,21 @@
                     </div>
                 </div>
                 <br>
-                <div class="card">
-                    <div class="card-header">
-                        Billing Info
+                <form action="" method="post"></form>
+                    <div class="card">
+                        <div class="card-header">
+                            Billing Info
+                        </div>
+                        <div class="card-body">
+                                {% csrf_token %}
+                            {{ billing_form.as_p }}
+                        </div>
                     </div>
-                    <div class="card-body">
-                        {{ billing_form.as_p }}
+                    <br>
+                    <div class="d-grid">
+                        <button type="submit" class="d-block btn btn-secondary">Pay Now</button>
                     </div>
-                </div>
-                <br>
-                <button type="submit" class="d-block btn btn-secondary">Pay Now</button>
+                </form>
             </div>
         </div>  
     </div>
