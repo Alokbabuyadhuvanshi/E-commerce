@@ -34,7 +34,7 @@
                         {% endfor %}
                         </small>
                         <br><br>
-                        {% endfor %}
+                    {% endfor %}
                         <div>
                             <strong>Total:</strong> ₹{{totals}}
                         </div>
@@ -63,13 +63,13 @@
                     </div>
                 </div>
                 <br>
-                <form action="" method="post"></form>
+                <form action="{% url 'process_order' %}" method="POST">
                     <div class="card">
                         <div class="card-header">
                             Billing Info
                         </div>
                         <div class="card-body">
-                                {% csrf_token %}
+                            {% csrf_token %}
                             {{ billing_form.as_p }}
                         </div>
                     </div>
@@ -82,6 +82,4 @@
         </div>  
     </div>
     <br>
-
-
 {% endblock %}
