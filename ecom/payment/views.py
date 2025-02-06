@@ -12,9 +12,10 @@ def process_order(request):
         cart_products = cart.get_prods
         quantities = cart.get_quants
         totals = cart.cart_total()
+        #Get billing info from the last page
         payment_form = PaymentForm(request.POST or None)
         # Get shipping Session Data
-        my_shipping = request.session.get('shipping_info')
+        my_shipping = request.session.get('my_shipping')
         # Gather Order Info
         full_name = my_shipping['shipping_full_name']
         email = my_shipping['shipping_email']
@@ -23,6 +24,9 @@ def process_order(request):
         # Get Shipping Address data form Session "my_shipping"
         shipping_address = f"{my_shipping['shipping_address1']}\n{my_shipping['shipping_address2']}\n{my_shipping['shipping_city']}\n{my_shipping['shipping_state']}\n{my_shipping['shipping_zipcode']}\n{my_shipping['shipping_country']}"
         
+        # If user is not authenticated
+        user = None
+
         if request.user.is_authenticated:
             user = request.user
             # create Oder
