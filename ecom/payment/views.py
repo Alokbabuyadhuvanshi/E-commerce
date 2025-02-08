@@ -51,6 +51,9 @@ def process_order(request):
                         # Create Order Item
                         create_order_item = OrderItem(order_id=order_id, product_id=product_id, user=user, quantity=value, price=price)
                         create_order_item.save()
+            for key in list(request.session.keys()):
+                if key == "session_key":    
+                    del request.session[key]
                             
 
             messages.success(request,"Order Placed")
@@ -74,8 +77,12 @@ def process_order(request):
                         # Create Order Item
                         create_order_item = OrderItem(order_id=order_id, product_id=product_id, quantity=value, price=price)
                         create_order_item.save()
+            # Delete the cart
+            for key in list(request.session.keys()):
+                if key == "session_key":    
+                    del request.session[key]
                             
-            messages.success(request,"Access Denied")
+            messages.success(request,"Order Placed")
             return redirect('home')
     else:
         messages.success(request,"Access Denied")
